@@ -1,0 +1,222 @@
+/* ------------------------------
+  Body & Container
+------------------------------ */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #f1f5f9;
+}
+
+body.light {
+  background: #f9fafb;
+  color: #1e293b;
+}
+
+.container {
+  margin-top: 50px;
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  width: 520px;
+  max-width: 95%;
+  background: #1e293b;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.light .container {
+  background: #ffffff;
+}
+
+/* ------------------------------
+  Header
+------------------------------ */
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 32px;
+  color: #3b82f6;
+}
+
+body.light h1 { color: #2563eb; }
+
+/* ------------------------------
+  Controls
+------------------------------ */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.controls button {
+  background: #3b82f6;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.25s;
+  width: 100%;
+}
+
+.controls button:hover {
+  background: #2563eb;
+  transform: scale(1.03);
+}
+
+body.light .controls button {
+  background: #2563eb;
+  color: white;
+}
+
+#autoRefreshStatus {
+  margin-top: 5px;
+  font-size: 14px;
+  text-align: center;
+  color: #cbd5e1;
+}
+
+body.light #autoRefreshStatus {
+  color: #475569;
+}
+
+/* ------------------------------
+  Server List
+------------------------------ */
+.server-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.server-list li {
+  background: #334155;
+  padding: 18px 20px;
+  border-radius: 15px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s;
+  position: relative;
+}
+
+.server-list li:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.5);
+}
+
+body.light .server-list li {
+  background: #e2e8f0;
+}
+
+/* ------------------------------
+  Server Info Text
+------------------------------ */
+.server-list li span.ip {
+  font-weight: bold;
+  font-size: 17px;
+  color: #facc15;
+}
+
+body.light .server-list li span.ip {
+  color: #1e293b;
+}
+
+.server-list li span.host {
+  font-size: 15px;
+  font-weight: 600;
+  color: #38bdf8;
+  margin-top: 4px;
+}
+
+body.light .server-list li span.host {
+  color: #2563eb;
+}
+
+.server-list li small {
+  color: #cbd5e1;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+body.light .server-list li small {
+  color: #475569;
+}
+
+.server-list li small.offline {
+  color: #f87171;
+}
+
+body.light .server-list li small.offline {
+  color: #ef4444;
+}
+
+/* ------------------------------
+  Responsive
+------------------------------ */
+@media screen and (max-width: 600px) {
+  .container {
+    padding: 25px 20px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  .controls button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .server-list li {
+    padding: 15px 15px;
+  }
+
+  .server-list li span.ip {
+    font-size: 15px;
+  }
+
+  .server-list li span.host {
+    font-size: 14px;
+  }
+
+  .server-list li small {
+    font-size: 12px;
+  }
+}
+
+/* ------------------------------
+  Extra Effects
+------------------------------ */
+.server-list li::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 5px;
+  border-radius: 15px 0 0 15px;
+  background: #3b82f6;
+  transition: background 0.3s;
+}
+
+.server-list li.offline::before {
+  background: #f87171;
+}
+
+body.light .server-list li::before {
+  background: #2563eb;
+}
+body.light .server-list li.offline::before {
+  background: #ef4444;
+}

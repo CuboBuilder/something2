@@ -188,3 +188,52 @@ body.dark td.mode { color: #94a3b8; }
   background-color: rgba(34,197,94,0.2); /* light green highlight */
   transition: background-color 0.3s;
 }
+.copyable {
+  cursor: pointer;
+  position: relative;
+}
+
+.copy-tooltip {
+  position: absolute;
+  transform: translateX(-50%);
+  background: #1e293b;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+body.light .copy-tooltip {
+  background: #3b82f6;
+  color: white;
+}
+
+
+body.light .copy-tooltip {
+  background: #3b82f6;
+  color: white;
+}
+
+/* GitHub link style */
+#githubLink {
+  font-size: 20px;
+  color: #1e293b;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+#githubLink:hover {
+  color: #3b82f6;
+}
+
+body.dark #githubLink {
+  color: #f1f5f9;
+}
+
+body.dark #githubLink:hover {
+  color: #60a5fa;
+}

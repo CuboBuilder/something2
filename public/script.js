@@ -65,8 +65,6 @@ function cleanServerName(name) {
   return name.replace(/\[[^\]]*]/g, '');
 }
 
-// Render servers in table
-// Render servers in table
 function renderServers(servers) {
   const tbody = document.querySelector('#serverList tbody');
   tbody.innerHTML = '';
@@ -109,19 +107,68 @@ function renderServers(servers) {
     tbody.appendChild(tr);
   });
 
-  // Attach click-to-copy for IP and Name cells
+  // Attach copy-to-clipboard AFTER rendering
   document.querySelectorAll('.copyable').forEach(cell => {
-    cell.addEventListener('click', () => {
+    cell.onclick = () => {
       const ip = cell.getAttribute('data-ip');
       navigator.clipboard.writeText(ip).then(() => {
-        // Optional feedback
-        cell.classList.add('copied');
-        setTimeout(() => cell.classList.remove('copied'), 800);
+        showCopyTooltip(cell);
       });
-    });
+    };
   });
 }
 
+function showCopyTooltip(cell) {
+  const tooltip = document.createElement('div');
+  tooltip.className = 'copy-tooltip';
+  tooltip.textContent = '📋 Copied!';
+  document.body.appendChild(tooltip);
+
+  const rect = cell.getBoundingClientRect();
+  tooltip.style.left = rect.left + window.scrollX + rect.width / 2 + 'px';
+  tooltip.style.top = rect.top + window.scrollY - 30 + 'px';
+
+  tooltip.style.transition = 'opacity 0.5s ease';
+  setTimeout(() => (tooltip.style.opacity = '0'), 600);
+  setTimeout(() => tooltip.remove(), 1100);
+}
+
+
+  // Attach click-to-copy for IP and Name cells
+document.querySelectorAll('.copyable').forEach(cell => {
+  cell.addEventListener('click', () => {
+    const ip = cell.getAttribute('data-ip');
+    navigator.clipboard.writeText(ip).then(() => {
+      // Optional feedback
+      cell.classList.add('copied');
+      setTimeout(() => cell.classList.remove('copied'), 800);
+    });
+  });
+});
+
+// Attach click-to-copy for IP and Name cells
+document.querySelectorAll('.copyable').forEach(cell => {
+  cell.addEventListener('click', () => {
+    const ip = cell.getAttribute('data-ip');
+    navigator.clipboard.writeText(ip).then(() => {
+      // Create tooltip element
+      const tooltip = document.createElement('div');
+      tooltip.className = 'copy-tooltip';
+      tooltip.textContent = '📋 Copied!';
+      document.body.appendChild(tooltip);
+
+      // Position tooltip above the cell
+      const rect = cell.getBoundingClientRect();
+      tooltip.style.left = rect.left + window.scrollX + rect.width / 2 + 'px';
+      tooltip.style.top = rect.top + window.scrollY - 25 + 'px';
+
+      // Animate and remove
+      setTimeout(() => {
+        tooltip.remove();
+      }, 1000);
+    });
+  });
+});
 
 
 

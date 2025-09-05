@@ -60,37 +60,50 @@ addServerBtn.addEventListener('click', async () => {
   }
 });
 
-// Render servers
+function cleanServerName(name) {
+  // Remove all [ ... ] tags
+  return name.replace(/\[[^\]]*]/g, '');
+}
+
+// Render servers in table
 function renderServers(servers) {
-  serverList.innerHTML = '';
+  const tbody = document.querySelector('#serverList tbody');
+  tbody.innerHTML = '';
+
   servers.forEach(s => {
-    const li = document.createElement('li');
+    const tr = document.createElement('tr');
 
-    const ipPort = document.createElement('span');
-    ipPort.className = 'ip';
-    ipPort.textContent = s.ip;
-    if (s.port) ipPort.textContent += `:${s.port}`;
-    li.appendChild(ipPort);
+    // IP Address & Version
+    const ipTd = document.createElement('td');
+    ipTd.innerHTML = s.online
+      ? `<span class="online-badge">Online</span> ${s.ip} <small class="version">v.${s.info.gameversion}</small>`
+      : `<span class="offline-badge">Offline</span> ${s.ip}`;
+    tr.appendChild(ipTd);
 
-    if (s.online) {
-      const hostSpan = document.createElement('span');
-      hostSpan.className = 'host';
-      hostSpan.textContent = s.info.host;
-      li.appendChild(hostSpan);
+    // Name & Description
+    const nameTd = document.createElement('td');
+    nameTd.innerHTML = s.online
+      ? cleanServerName(s.info.host || '') + (s.info.description ? ` <small>${escapeHTML(s.info.description)}</small>` : '')
+      : '-';
+    tr.appendChild(nameTd);
 
-      const details = document.createElement('small');
-      details.innerHTML = `Map: ${s.info.map} | Players: ${s.info.players}/${s.info.limit} | Waves: ${s.info.waves} | Version: ${s.info.gameversion}`;
-      li.appendChild(details);
-    } else {
-      const offline = document.createElement('small');
-      offline.className = 'offline';
-      offline.textContent = `Offline (${s.error})`;
-      li.appendChild(offline);
-    }
+    // Players count
+    const playersTd = document.createElement('td');
+    playersTd.textContent = s.online ? `${s.info.players}/${s.info.limit}` : '-';
+    playersTd.className = 'players';
+    tr.appendChild(playersTd);
 
-    serverList.appendChild(li);
+    // Map
+    const mapTd = document.createElement('td');
+    mapTd.textContent = s.online ? s.info.map : '-';
+    mapTd.className = 'map';
+    tr.appendChild(mapTd);
+
+    tbody.appendChild(tr);
   });
 }
+
+
 
 // Theme toggle
 themeToggleBtn.addEventListener('click', () => {

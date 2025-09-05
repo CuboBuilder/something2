@@ -14,7 +14,20 @@
       <button id="autoRefreshToggleBtn">🔄 Auto-Refresh</button>
       <small id="autoRefreshStatus">Auto-refresh enabled (10s)</small>
     </div>
-    <ul id="serverList" class="server-list"></ul>
+
+    <table id="serverList">
+      <thead>
+        <tr>
+          <th>IP Address</th>
+          <th>Name</th>
+          <th>Players</th>
+          <th>Map</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Servers will be rendered here -->
+      </tbody>
+    </table>
   </div>
   <script src="script.js"></script>
 </body>

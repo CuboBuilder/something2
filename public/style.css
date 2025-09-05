@@ -1,222 +1,182 @@
-/* ------------------------------
-  Body & Container
------------------------------- */
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f9fafb;
+  color: #1e293b;
   margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  transition: background 0.3s, color 0.3s;
+  padding: 20px;
 }
 
 body.dark {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
+  background: #0f172a;
   color: #f1f5f9;
 }
 
-body.light {
-  background: #f9fafb;
-  color: #1e293b;
-}
-
 .container {
-  margin-top: 50px;
-  padding: 30px 40px;
-  border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-  width: 520px;
-  max-width: 95%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+body.dark .container {
   background: #1e293b;
-  transition: background 0.3s, color 0.3s;
 }
 
-body.light .container {
-  background: #ffffff;
-}
-
-/* ------------------------------
-  Header
------------------------------- */
 h1 {
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 32px;
+  text-align: left;
+  margin-bottom: 15px;
+  font-size: 24px;
   color: #3b82f6;
 }
 
-body.light h1 { color: #2563eb; }
+body.dark h1 { color: #60a5fa; }
 
-/* ------------------------------
-  Controls
------------------------------- */
 .controls {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 25px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
 .controls button {
   background: #3b82f6;
   border: none;
-  padding: 12px 20px;
-  border-radius: 12px;
   color: white;
-  font-size: 16px;
+  padding: 6px 14px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.25s;
-  width: 100%;
+  font-size: 14px;
+  transition: background 0.2s;
 }
 
-.controls button:hover {
-  background: #2563eb;
-  transform: scale(1.03);
-}
+.controls button:hover { background: #2563eb; }
 
-body.light .controls button {
-  background: #2563eb;
-  color: white;
-}
+body.dark .controls button { background: #2563eb; }
 
 #autoRefreshStatus {
-  margin-top: 5px;
-  font-size: 14px;
-  text-align: center;
-  color: #cbd5e1;
-}
-
-body.light #autoRefreshStatus {
+  font-size: 13px;
+  margin-left: auto;
   color: #475569;
 }
 
-/* ------------------------------
-  Server List
------------------------------- */
-.server-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+body.dark #autoRefreshStatus { color: #cbd5e1; }
+
+/* -----------------------------
+  Table
+----------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.server-list li {
-  background: #334155;
-  padding: 18px 20px;
-  border-radius: 15px;
-  margin-bottom: 18px;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.25s;
-  position: relative;
+thead {
+  background: #e5e7eb;
 }
 
-.server-list li:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 25px rgba(0,0,0,0.5);
+body.dark thead { background: #334155; }
+
+th, td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #d1d5db;
+  font-size: 14px;
 }
 
-body.light .server-list li {
-  background: #e2e8f0;
-}
+body.dark th, body.dark td { border-bottom: 1px solid #475569; }
 
-/* ------------------------------
-  Server Info Text
------------------------------- */
-.server-list li span.ip {
-  font-weight: bold;
-  font-size: 17px;
-  color: #facc15;
-}
-
-body.light .server-list li span.ip {
+th {
+  font-weight: 600;
   color: #1e293b;
 }
 
-.server-list li span.host {
-  font-size: 15px;
-  font-weight: 600;
-  color: #38bdf8;
-  margin-top: 4px;
+body.dark th { color: #f1f5f9; }
+
+td small {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
 }
 
-body.light .server-list li span.host {
-  color: #2563eb;
+body.dark td small { color: #94a3b8; }
+
+.online-badge {
+  display: inline-block;
+  background: #10b981;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  margin-right: 6px;
 }
 
-.server-list li small {
-  color: #cbd5e1;
-  margin-top: 6px;
-  font-size: 13px;
-}
+body.dark .online-badge { background: #22c55e; }
 
-body.light .server-list li small {
-  color: #475569;
-}
-
-.server-list li small.offline {
-  color: #f87171;
-}
-
-body.light .server-list li small.offline {
-  color: #ef4444;
-}
-
-/* ------------------------------
-  Responsive
------------------------------- */
-@media screen and (max-width: 600px) {
-  .container {
-    padding: 25px 20px;
-  }
-
-  h1 {
-    font-size: 26px;
-  }
-
-  .controls button {
-    font-size: 14px;
-    padding: 10px 15px;
-  }
-
-  .server-list li {
-    padding: 15px 15px;
-  }
-
-  .server-list li span.ip {
-    font-size: 15px;
-  }
-
-  .server-list li span.host {
-    font-size: 14px;
-  }
-
-  .server-list li small {
-    font-size: 12px;
-  }
-}
-
-/* ------------------------------
-  Extra Effects
------------------------------- */
-.server-list li::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  width: 5px;
-  border-radius: 15px 0 0 15px;
-  background: #3b82f6;
-  transition: background 0.3s;
-}
-
-.server-list li.offline::before {
-  background: #f87171;
-}
-
-body.light .server-list li::before {
-  background: #2563eb;
-}
-body.light .server-list li.offline::before {
+.offline-badge {
+  display: inline-block;
   background: #ef4444;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  margin-right: 6px;
+}
+
+body.dark .offline-badge { background: #f87171; }
+
+tr:hover { background: #f3f4f6; }
+
+body.dark tr:hover { background: #475569; }
+
+td.version {
+  font-weight: 600;
+  color: #facc15;
+}
+
+body.dark td.version { color: #fcd34d; }
+
+td.map {
+  font-weight: 500;
+  color: #3b82f6;
+}
+
+body.dark td.map { color: #60a5fa; }
+
+td.players {
+  font-weight: 500;
+}
+
+td.mode {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+body.dark td.mode { color: #94a3b8; }
+
+/* Responsive */
+@media screen and (max-width: 800px) {
+  table, thead, tbody, th, td, tr { display: block; }
+  thead tr { display: none; }
+  tr { margin-bottom: 15px; border-bottom: 2px solid #d1d5db; }
+  td {
+    padding-left: 50%;
+    position: relative;
+    text-align: left;
+    border: none;
+  }
+  td::before {
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    white-space: nowrap;
+    font-weight: 600;
+    color: #6b7280;
+  }
+  td.version::before { content: "Address"; }
+  td.name::before { content: "Name"; }
+  td.players::before { content: "Players"; }
+  td.map::before { content: "Map"; }
+  td.mode::before { content: "Mode"; }
 }

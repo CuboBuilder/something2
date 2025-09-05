@@ -180,3 +180,11 @@ body.dark td.mode { color: #94a3b8; }
   td.map::before { content: "Map"; }
   td.mode::before { content: "Mode"; }
 }
+.copyable {
+  cursor: pointer;
+}
+
+.copyable.copied {
+  background-color: rgba(34,197,94,0.2); /* light green highlight */
+  transition: background-color 0.3s;
+}

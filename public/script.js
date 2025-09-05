@@ -66,6 +66,7 @@ function cleanServerName(name) {
 }
 
 // Render servers in table
+// Render servers in table
 function renderServers(servers) {
   const tbody = document.querySelector('#serverList tbody');
   tbody.innerHTML = '';
@@ -73,11 +74,15 @@ function renderServers(servers) {
   servers.forEach(s => {
     const tr = document.createElement('tr');
 
+    const fullAddress = s.port ? `${s.ip}:${s.port}` : s.ip;
+
     // IP Address & Version
     const ipTd = document.createElement('td');
     ipTd.innerHTML = s.online
-      ? `<span class="online-badge">Online</span> ${s.ip} <small class="version">v.${s.info.gameversion}</small>`
-      : `<span class="offline-badge">Offline</span> ${s.ip}`;
+      ? `<span class="online-badge">Online</span> ${fullAddress} <small class="version">v.${s.info.gameversion}</small>`
+      : `<span class="offline-badge">Offline</span> ${fullAddress}`;
+    ipTd.setAttribute('data-ip', fullAddress);
+    ipTd.classList.add('copyable');
     tr.appendChild(ipTd);
 
     // Name & Description
@@ -85,6 +90,8 @@ function renderServers(servers) {
     nameTd.innerHTML = s.online
       ? cleanServerName(s.info.host || '') + (s.info.description ? ` <small>${escapeHTML(s.info.description)}</small>` : '')
       : '-';
+    nameTd.setAttribute('data-ip', fullAddress);
+    nameTd.classList.add('copyable');
     tr.appendChild(nameTd);
 
     // Players count
@@ -101,7 +108,20 @@ function renderServers(servers) {
 
     tbody.appendChild(tr);
   });
+
+  // Attach click-to-copy for IP and Name cells
+  document.querySelectorAll('.copyable').forEach(cell => {
+    cell.addEventListener('click', () => {
+      const ip = cell.getAttribute('data-ip');
+      navigator.clipboard.writeText(ip).then(() => {
+        // Optional feedback
+        cell.classList.add('copied');
+        setTimeout(() => cell.classList.remove('copied'), 800);
+      });
+    });
+  });
 }
+
 
 
 
